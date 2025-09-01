@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Pembelajaran Interaktif - Materi Poster</title>
+    <style>
+        :root {
+            --primary: #3498db;
+            --secondary: #2ecc71;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 20px 0 30px;
+            gap: 10px;
+        }
+        
+        .nav-tab {
+            padding: 12px 25px;
+            background-color: white;
+            color: var(--primary);
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid var(--primary);
+        }
+        
+        .nav-tab:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        .nav-tab.active {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .content-section {
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            display: none;
+        }
+        
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light);
+        }
+        
+        h3 {
+            color: var(--secondary);
+            margin: 15px 0 10px;
+        }
+        
+        p {
+            margin-bottom: 15px;
+        }
+        
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .card {
+            flex: 1 1 300px;
+            background-color: var(--light);
+            border-radius: 10px;
+            padding: 20px;
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card h3 {
+            color: var(--dark);
+        }
+        
+        .interactive-element {
+            background-color: #f5f5f5;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+        
+        .btn:hover {
+            background-color: #2980b9;
+        }
+        
+        .quiz-container {
+            margin: 20px 0;
+        }
+        
+        .quiz-question {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .options label {
+            display: block;
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        
+        .options label:hover {
+            background-color: #e9e9e9;
+        }
+        
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+            display: none;
+        }
+        
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .danger {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        
+        .poster-maker {
+            border: 2px dashed #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            min-height: 400px;
+            background-color: #fafafa;
+        }
+        
+        .toolbar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .tool-btn {
+            padding: 8px 15px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .tool-btn:hover {
+            background-color: #f0f0f0;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            background-color: var(--dark);
+            color: white;
+            border-radius: 20px 20px 0 0;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .nav-tab {
+                width: 80%;
+                margin-bottom: 10px;
+                text-align: center;
+            }
+            
+            .card {
+                flex: 1 1 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Media Pembelajaran Interaktif</h1>
+            <p class="subtitle">Materi Poster - Media Komunikasi Visual yang Efektif</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="nav-tabs">
+            <div class="nav-tab active" data-target="pengenalan">Pengenalan</div>
+            <div class="nav-tab" data-target="tujuan">Tujuan Poster</div>
+            <div class="nav-tab" data-target="unsur">Unsur-Unsur Poster</div>
+            <div class="nav-tab" data-target="jenis">Jenis-Jenis Poster</div>
+            <div class="nav-tab" data-target="langkah">Langkah Membuat</div>
+            <div class="nav-tab" data-target="kuis">Kuis Interaktif</div>
+            <div class="nav-tab" data-target="simulator">Simulator Poster</div>
+        </div>
+        
+        <div class="content-section active" id="pengenalan">
+            <h2>Pengenalan Poster</h2>
+            <p>Poster adalah media komunikasi visual yang berisi pesan-pesan yang disampaikan melalui gabungan antara teks dan gambar. Poster biasanya ditempel di tempat-tempat umum agar mudah dilihat banyak orang.</p>
+            
+            <div class="interactive-element">
+                <h3>Fungsi Utama Poster</h3>
+                <p>Poster memiliki beberapa fungsi utama, antara lain:</p>
+                <ul>
+                    <li>Menyampaikan informasi kepada khalayak ramai</li>
+                    <li>Mempromosikan produk, jasa, atau acara</li>
+                    <li>Mempengaruhi orang untuk melakukan sesuatu</li>
+                    <li>Memberikan pengumuman penting</li>
+                </ul>
+            </div>
+            
+            <div class="card-container">
+                <div class="card">
+                    <h3>Sejarah Poster</h3>
+                    <p>Poster telah digunakan sejak abad ke-19 untuk berbagai keperluan, mulai dari propaganda politik hingga iklan komersial. Perkembangan teknologi percetakan membuat poster semakin mudah diproduksi dan disebarluaskan.</p>
+                </div>
+                <div class="card">
+                    <h3>Ciri-Ciri Poster</h3>
+                    <p>Poster yang baik memiliki ciri-ciri: desain mencolok, pesan jelas dan mudah dipahami, kombinasi warna kontras, serta layout yang terorganisir dengan baik.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="content-section" id="tujuan">
+            <h2>Tujuan Pembuatan Poster</h2>
+            <p>Poster dibuat dengan berbagai tujuan tergantung pada konteks penggunaannya. Berikut adalah beberapa tujuan utama pembuatan poster:</p>
+            
+            <div class="card-container">
+                <div class="card">
+                    <h3>Poster Informasi</h3>
+                    <p>Bertujuan untuk memberikan informasi kepada masyarakat tentang suatu hal, seperti pengumuman resmi, informasi kesehatan, atau pedoman keselamatan.</p>
+                </div>
+                <div class="card">
+                    <h3>Poster Iklan</h3>
+                    <p>Digunakan untuk mempromosikan produk, jasa, atau merek tertentu kepada calon konsumen.</p>
+                </div>
+                <div class="card">
+                    <h3>Poster Ajakan</h3>
+                    <p>Bertujuan mengajak masyarakat untuk melakukan sesuatu, seperti menjaga kebersihan, mengikuti vaksinasi, atau hemat energi.</p>
+                </div>
+                <div class="card">
+                    <h3>Poster Pendidikan</h3>
+                    <p>Digunakan sebagai media pembelajaran untuk menyampaikan materi edukasi dengan cara yang visual dan menarik.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="content-section" id="unsur">
+            <h2>Unsur-Unsur Poster</h2>
+            <p>Sebuah poster yang efektif terdiri dari beberapa unsur penting yang bekerja sama menyampaikan pesan:</p>
+            
+            <div class="card-container">
+                <div class="card">
+                    <h3>Judul</h3>
+                    <p>Kalimat singkat dan menarik yang langsung menyampaikan inti pesan poster.</p>
+                </div>
+                <div class="card">
+                    <h3>Gambar/Ilustrasi</h3>
+                    <p>Visual yang mendukung pesan dan menarik perhatian pembaca.</p>
+                </div>
+                <div class="card">
+                    <h3>Teks Penjelas</h3>
+                    <p>Informasi tambahan yang menjelaskan pesan poster secara lebih detail.</p>
+                </div>
+                <div class="card">
+                    <h3>Warna</h3>
+                    <p>Pemilihan warna yang tepat dapat meningkatkan daya tarik dan efektivitas poster.</p>
+                </div>
+                <div class="card">
+                    <h3>Layout</h3>
+                    <p>Tata letak yang terorganisir membuat poster mudah dibaca dan dipahami.</p>
+                </div>
+                <div class="card">
+                    <h3>Kontak/Informasi</h3>
+                    <p>Detail kontak atau informasi tambahan yang diperlukan pembaca.</p>
+                </div>
+            </div>
+            
+            <div class="interactive-element">
+                <h3>Tips Memilih Warna untuk Poster</h3>
+                <p>Pemilihan warna yang tepat sangat penting untuk menarik perhatian dan menyampaikan pesan dengan efektif:</p>
+                <ul>
+                    <li>Gunakan warna kontras untuk teks dan latar belakang</li>
+                    <li>Pilih palet warna yang sesuai dengan tema poster</li>
+                    <li>Batasi jumlah warna (3-4 warna utama biasanya cukup)</li>
+                    <li>Pertimbangkan psikologi warna dalam menyampaikan pesan</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="content-section" id="jenis">
+            <h2>Jenis-Jenis Poster</h2>
+            <p>Berdasarkan tujuan dan isinya, poster dapat dikategorikan menjadi beberapa jenis:</p>
+            
+            <div class="card-container">
+                <div class="card">
+                    <h3>Poster Komersial</h3>
+                    <p>Bertujuan mempromosikan produk atau jasa untuk meningkatkan penjualan.</p>
+                </div>
+                <div class="card">
+                    <h3>Poster Kegiatan</h3>
+                    <p>Menginformasikan tentang acara atau kegiatan yang akan diselenggarakan.</p>
+                </div>
+                <div class="card">
+                    <h3>Poster Pendidikan</h3>
+                    <p>Berisi materi pembelajaran atau informasi edukatif.</p>
+                </div>
+                <div class="card">
+                    <h3>Poster Layanan Masyarakat</h3>
+                    <p>Memberikan informasi penting untuk kepentingan publik.</p>
+                </div>
+                <div class="card">
+                    <h3>Poster Propaganda</h3>
+                    <p>Mempengaruhi opini publik tentang isu tertentu.</p>
+                </div>
+                <div class="card">
+                    <h3>Poster Riset/Ilmiah</h3>
+                    <p>Menampilkan hasil penelitian atau temuan ilmiah.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="content-section" id="langkah">
+            <h2>Langkah-Langkah Membuat Poster</h2>
+            <p>Membuat poster yang efektif membutuhkan perencanaan dan eksekusi yang tepat. Berikut adalah langkah-langkahnya:</p>
+            
+            <div class="card-container">
+                <div class="card">
+                    <h3>1. Tentukan Tujuan</h3>
+                    <p>Identifikasi tujuan pembuatan poster dan pesan utama yang ingin disampaikan.</p>
+                </div>
+                <div class="card">
+                    <h3>2. Kenali Audiens</h3>
+                    <p>Pahami target audiens agar poster dapat disesuaikan dengan preferensi mereka.</p>
+                </div>
+                <div class="card">
+                    <h3>3. Kumpulkan Konten</h3>
+                    <p>Siapkan teks, gambar, dan elemen visual lainnya yang akan digunakan.</p>
+                </div>
+                <div class="card">
+                    <h3>4. Buat Sketsa</h3>
+                    <p>Buat draft layout poster untuk menentukan tata letak elemen-elemennya.</p>
+                </div>
+                <div class="card">
+                    <h3>5. Pilih Warna dan Tipografi</h3>
+                    <p>Tentukan kombinasi warna dan font yang sesuai dengan pesan dan audiens.</p>
+                </div>
+                <div class="card">
+                    <h3>6. Desain Poster</h3>
+                    <p>Gunakan software desain atau tools yang sesuai untuk membuat poster.</p>
+                </div>
+                <div class="card">
+                    <h3>7. Review dan Revisi</h3>
+                    <p>Periksa kembali poster dan mintalah pendapat orang lain sebelum dicetak.</p>
+                </div>
+                <div class="card">
+                    <h3>8. Cetak dan Sebarkan</h3>
+                    <p>Cetak poster dengan kualitas yang baik dan tempatkan di lokasi strategis.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="content-section" id="kuis">
+            <h2>Kuis Interaktif: Menguji Pemahaman Anda</h2>
+            <p>Jawablah pertanyaan-pertanyaan berikut untuk menguji pemahaman Anda tentang materi poster.</p>
+            
+            <div class="quiz-container">
+                <div class="quiz-question">
+                    <h3>1. Apa fungsi utama dari poster?</h3>
+                    <div class="options">
+                        <label>
+                            <input type="radio" name="q1" value="a"> Hanya sebagai hiasan dinding
+                        </label>
+                        <label>
+                            <input type="radio" name="q1" value="b"> Menyampaikan pesan melalui teks dan gambar
+                        </label>
+                        <label>
+                            <input type="radio" name="q1" value="c"> Menggantikan fungsi surat kabar
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="quiz-question">
+                    <h3>2. Manakah yang BUKAN termasuk unsur poster?</h3>
+                    <div class="options">
+                        <label>
+                            <input type="radio" name="q2" value="a"> Animasi gerak
+                        </label>
+                        <label>
+                            <input type="radio" name="q2" value="b"> Gambar/ilustrasi
+                        </label>
+                        <label>
+                            <input type="radio" name="q2" value="c"> Judul yang menarik
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="quiz-question">
+                    <h3>3. Poster yang bertujuan mempromosikan produk termasuk jenis...</h3>
+                    <div class="options">
+                        <label>
+                            <input type="radio" name="q3" value="a"> Poster pendidikan
+                        </label>
+                        <label>
+                            <input type="radio" name="q3" value="b"> Poster komersial
+                        </label>
+                        <label>
+                            <input type="radio" name="q3" value="c"> Poster propaganda
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="quiz-question">
+                    <h3>4. Mengapa pemilihan warna penting dalam pembuatan poster?</h3>
+                    <div class="options">
+                        <label>
+                            <input type="radio" name="q4" value="a"> Karena warna mahal
+                        </label>
+                        <label>
+                            <input type="radio" name="q4" value="b"> Untuk menarik perhatian dan menyampaikan pesan efektif
+                        </label>
+                        <label>
+                            <input type="radio" name="q4" value="c"> Agar poster terlihat mewah
+                        </label>
+                    </div>
+                </div>
+                
+                <button class="btn" id="submit-quiz">Submit Jawaban</button>
+                
+                <div class="result" id="quiz-result"></div>
+            </div>
+        </div>
+        
+        <div class="content-section" id="simulator">
+            <h2>Simulator Pembuatan Poster Sederhana</h2>
+            <p>Gunakan simulator ini untuk berlatih membuat poster secara virtual. Pilih elemen-elemen yang ingin ditambahkan dan atur tata letaknya.</p>
+            
+            <div class="toolbar">
+                <button class="tool-btn" id="add-title">Tambah Judul</button>
+                <button class="tool-btn" id="add-image">Tambah Gambar</button>
+                <button class="tool-btn" id="add-text">Tambah Teks</button>
+                <button class="tool-btn" id="change-bg">Ubah Latar Belakang</button>
+                <button class="tool-btn" id="reset-poster">Reset</button>
+            </div>
+            
+            <div class="poster-maker" id="poster-canvas">
+                <p style="text-align: center; color: #999;">Tambahkan elemen untuk mulai membuat poster</p>
+            </div>
+            
+            <div class="interactive-element">
+                <h3>Tips Desain Poster</h3>
+                <ul>
+                    <li>Gunakan hierarki visual untuk menuntut mata pembaca</li>
+                    <li>Jaga keseimbangan antara teks dan gambar</li>
+                    <li>Pastikan teks mudah dibaca dari jarak tertentu</li>
+                    <li>Gunakan ruang negatif (white space) untuk kenyamanan membaca</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>Media Pembelajaran Interaktif - Materi Poster</p>
+            <p>© 2023 - Dibuat untuk tujuan edukasi</p>
+        </div>
+    </footer>
+
+    <script>
+        // Navigasi tab
+        document.querySelectorAll('.nav-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Hapus kelas active dari semua tab
+                document.querySelectorAll('.nav-tab').forEach(t => {
+                    t.classList.remove('active');
+                });
+                
+                // Tambahkan kelas active ke tab yang diklik
+                tab.classList.add('active');
+                
+                // Sembunyikan semua konten
+                document.querySelectorAll('.content-section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                // Tampilkan konten yang sesuai
+                const targetId = tab.getAttribute('data-target');
+                document.getElementById(targetId).classList.add('active');
+            });
+        });
+        
+        // Kuis interaktif
+        document.getElementById('submit-quiz').addEventListener('click', () => {
+            const answers = {
+                q1: document.querySelector('input[name="q1"]:checked')?.value,
+                q2: document.querySelector('input[name="q2"]:checked')?.value,
+                q3: document.querySelector('input[name="q3"]:checked')?.value,
+                q4: document.querySelector('input[name="q4"]:checked')?.value
+            };
+            
+            let score = 0;
+            const correctAnswers = { q1: 'b', q2: 'a', q3: 'b', q4: 'b' };
+            
+            for (const question in answers) {
+                if (answers[question] === correctAnswers[question]) {
+                    score++;
+                }
+            }
+            
+            const resultElement = document.getElementById('quiz-result');
+            resultElement.style.display = 'block';
+            
+            if (score >= 3) {
+                resultElement.className = 'result success';
+                resultElement.innerHTML = `Selamat! Anda mendapatkan ${score} dari 4 jawaban benar. Pemahaman Anda tentang poster sangat baik!`;
+            } else {
+                resultElement.className = 'result danger';
+                resultElement.innerHTML = `Anda mendapatkan ${score} dari 4 jawaban benar. Silakan pelajari kembali materi poster.`;
+            }
+        });
+        
+        // Simulator poster
+        const posterCanvas = document.getElementById('poster-canvas');
+        let bgColors = ['#ffffff', '#f0f8ff', '#fff0f5', '#f5f5f5', '#fffff0'];
+        let bgIndex = 0;
+        
+        document.getElementById('add-title').addEventListener('click', () => {
+            const title = document.createElement('h2');
+            title.contentEditable = true;
+            title.textContent = 'Judul Poster Anda';
+            title.style.color = '#2c3e50';
+            title.style.textAlign = 'center';
+            title.style.margin = '20px 0';
+            posterCanvas.appendChild(title);
+        });
+        
+        document.getElementById('add-text').addEventListener('click', () => {
+            const text = document.createElement('p');
+            text.contentEditable = true;
+            text.textContent = 'Tuliskan teks poster Anda di sini. Pesan yang jelas dan singkat akan lebih efektif.';
+            text.style.margin = '15px 0';
+            posterCanvas.appendChild(text);
+        });
+        
+        document.getElementById('add-image').addEventListener('click', () => {
+            const imagePlaceholder = document.createElement('div');
+            imagePlaceholder.style.height = '150px';
+            imagePlaceholder.style.backgroundColor = '#ddd';
+            imagePlaceholder.style.margin = '20px 0';
+            imagePlaceholder.style.display = 'flex';
+            imagePlaceholder.style.alignItems = 'center';
+            imagePlaceholder.style.justifyContent = 'center';
+            imagePlaceholder.textContent = 'Gambar Poster (simulasi)';
+            imagePlaceholder.style.borderRadius = '8px';
+            posterCanvas.appendChild(imagePlaceholder);
+        });
+        
+        document.getElementById('change-bg').addEventListener('click', () => {
+            posterCanvas.style.backgroundColor = bgColors[bgIndex];
+            bgIndex = (bgIndex + 1) % bgColors.length;
+        });
+        
+        document.getElementById('reset-poster').addEventListener('click', () => {
+            posterCanvas.innerHTML = '<p style="text-align: center; color: #999;">Tambahkan elemen untuk mulai membuat poster</p>';
+            posterCanvas.style.backgroundColor = '#fafafa';
+        });
+    </script>
+</body>
+</html>
